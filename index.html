@@ -20,23 +20,25 @@
 
 </head>
 <body>
-    <div class="row">
 <div class="bgd1">
-    <div class="col-md-2"></div>
-    <div class="col-md-8 text-center mt-2">
-        <h1>Movie Search App</h1>
-        <div class="d-flex text-center justify-content-center">
-            <input type="text" placeholder="Enter Movie Name" class="mt-5 me-3 w-50" id="moviename">
-            <button class="btn btn-primary mt-5" onclick="search()">Search</button>
+    <div class="row">
+
+        <div class="col-md-1"></div>
+        <div class="col-md-10 text-center mt-2">
+            <h1>Movie Search App</h1>
+            <div class="d-flex justify-content-center align-items-center">
+                <input type="text" placeholder="Enter Movie Name" class="mt-5 me-3 w-50" id="moviename">
+                <button class="btn btn-primary mt-5" onclick="search()">Search</button>
+            </div>
+            <div class="mt-4 d-flex justify-content-center align-items-center" id="result">
+    
+    
+        
+    </div>
+    <div class="col-md-1"></div>
+    </div>
         </div>
-        <div class="mt-4 d-flex justify-content-center align-items-center" id="result">
-
-
-    </div>
 </div>
-<div class="col-md-2"></div>
-</div>
-    </div>
 
     <script>
         function search() {
@@ -44,13 +46,14 @@
             fetch(`https://www.omdbapi.com/?apikey=fa1c9c03&t=${moviename.value}`)
                 .then((response) => response.json())
                 .then((movie) => {
+                    console.log(movie);
               
                     if (movie.Response === "True") {
                         result.innerHTML = `
 
                             <div class="card shadow" style="width: 42rem;">
                                 <div class="d-flex">
-                                    <div><img src=${movie.Poster} class="card-img-top" alt="${movie.Title}" height= 400px></div>
+                                    <div id="poster"><img src=${movie.Poster} class="card-img-top" alt="${movie.Title}" height= 400px></div>
                                     <div class="card-body">
                                         <h5 class="card-title">${movie.Title}</h5>
                                         <h6 class="card-subtitle mb-2 text-muted">${movie.Released}</h6>
@@ -69,7 +72,7 @@
                              </div>
                         `;
                     } else {
-                        result.innerHTML = `<p>Movie not found!</p>`;
+                        result.innerHTML = `<p class="text-light">Movie not found!</p>`;
                     }
                 })
                 .catch((error) => {
